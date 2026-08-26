@@ -1194,6 +1194,10 @@
             .skill-tag .skill-icon {
                 font-size: 0.8rem;
             }
+            /* Sembunyikan penanda [EDIT] di mobile */
+            .skill-tag .edit-marker {
+                display: none;
+            }
         }
         @media (max-width: 380px) {
             .hero-name {
@@ -1381,7 +1385,7 @@
                 <button class="filter-btn" data-filter="other" role="tab" aria-selected="false">OTHER</button>
             </div>
             <div id="skills-container" class="reveal">
-                <!-- Skills will be rendered by JavaScript -->
+                <!-- Skills akan dirender oleh JavaScript -->
             </div>
         </div>
     </section>
@@ -1947,7 +1951,6 @@
 
             let html = '';
             if (filter === 'all') {
-                // Show categories in fixed order
                 const categoryOrder = ['web', 'frontend', 'backend', 'programming', 'tools', 'design', 'other'];
                 categoryOrder.forEach(cat => {
                     if (grouped[cat]) {
@@ -1967,7 +1970,6 @@
                     }
                 });
             } else {
-                // Single category
                 if (grouped[filter]) {
                     const catLabel = filter.charAt(0).toUpperCase() + filter.slice(1);
                     html += `<div class="skills-category-label">${catLabel}</div>`;
@@ -2062,4 +2064,4 @@
     })();
 </script>
 </body>
-    </html>
+        </html>
