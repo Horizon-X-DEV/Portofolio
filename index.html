@@ -1099,9 +1099,7 @@
                 display: flex;
             }
             .hero-monolith-wrap {
-                width: 70px;
-                right: 10px;
-                bottom: 20px;
+                display: none !important;
             }
             .hero-name {
                 font-size: clamp(2rem, 8vw, 3rem);
@@ -1249,6 +1247,7 @@
                 </svg>
             </div>
         </div>
+        <!-- MONOLITH - hanya tampil di desktop via media query -->
         <div class="hero-monolith-wrap" id="monolith-wrap" aria-hidden="true">
             <svg viewBox="0 0 120 200" fill="none" xmlns="http://www.w3.org/2000/svg" id="monolith-svg">
                 <defs>
@@ -1822,4 +1821,4 @@
     })();
 </script>
 </body>
-                             </html>
+                    </html>
