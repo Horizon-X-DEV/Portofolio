@@ -36,7 +36,7 @@
             --radius-md: 8px;
             --radius-lg: 12px;
             --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             --transition-slow: 0.7s cubic-bezier(0.4, 0, 0.2, 1);
             --nav-height: 64px;
             --section-pad: 90px 0;
@@ -541,20 +541,10 @@
         .mountain-front {
             z-index: 3;
         }
-        .hero-monolith-wrap {
-            position: absolute;
-            z-index: 4;
-            pointer-events: none;
-            transition: transform 0.1s ease-out;
-            will-change: transform;
-            bottom: 40px;
-            right: clamp(10px, 8vw, 90px);
-            width: clamp(70px, 9vw, 130px);
-        }
         .hero-content {
             position: relative;
             z-index: 5;
-            max-width: 700px;
+            max-width: 800px;
             padding: 0 clamp(16px, 4vw, 32px);
             text-align: center;
         }
@@ -569,12 +559,12 @@
         }
         .hero-name {
             font-family: var(--font-heading);
-            font-size: clamp(2.6rem, 8vw, 4.8rem);
+            font-size: clamp(2.8rem, 10vw, 5.5rem);
             font-weight: 800;
             letter-spacing: 0.02em;
             color: var(--white);
             line-height: 1.1;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             opacity: 0;
             animation: heroFadeUp 0.7s ease 0.3s forwards;
         }
@@ -597,7 +587,7 @@
         .hero-desc {
             font-size: 0.85rem;
             color: var(--gray-500);
-            max-width: 440px;
+            max-width: 500px;
             margin: 0 auto 26px;
             line-height: 1.8;
             opacity: 0;
@@ -714,44 +704,109 @@
         #skills {
             background: var(--bg);
         }
-        .skills-cat {
-            margin-bottom: 36px;
-        }
-        .skills-cat-title {
-            font-size: 0.75rem;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: var(--gray-500);
-            margin-bottom: 16px;
-            font-weight: 500;
-        }
-        .skills-list {
+        .skills-filter {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px 22px;
+            gap: 8px;
+            margin-bottom: 32px;
+            justify-content: center;
         }
-        .skill-item {
-            font-family: var(--font-heading);
-            font-size: 1rem;
-            font-weight: 500;
-            color: var(--gray-300);
-            padding: 4px 0;
-            position: relative;
-            cursor: default;
+        .filter-btn {
+            font-size: 0.75rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 6px 16px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            color: var(--gray-500);
+            background: transparent;
             transition: all var(--transition-fast);
-            border-bottom: 1px solid transparent;
-            letter-spacing: 0.01em;
+            cursor: pointer;
+            font-weight: 500;
         }
-        .skill-item:hover {
+        .filter-btn:hover,
+        .filter-btn.active {
+            border-color: var(--gray-300);
             color: var(--white);
-            border-bottom-color: var(--gray-500);
-            transform: translateX(2px);
+            background: var(--surface);
         }
-        .skill-divider {
-            width: 100%;
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 10px;
+        }
+        .skill-tag {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            color: var(--gray-300);
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all var(--transition-fast);
+            cursor: default;
+            position: relative;
+            background: var(--surface);
+            font-family: var(--font-body);
+            letter-spacing: 0.02em;
+        }
+        .skill-tag:hover {
+            border-color: var(--gray-500);
+            color: var(--white);
+            background: var(--surface-light);
+            transform: translateY(-2px);
+        }
+        .skill-tag::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -1px;
+            width: 0;
             height: 1px;
-            background: var(--border);
-            margin: 28px 0;
+            background: var(--gray-300);
+            transition: width 0.25s ease;
+        }
+        .skill-tag:hover::after {
+            width: 100%;
+        }
+        .skill-tag .skill-icon {
+            font-size: 1rem;
+            color: var(--gray-500);
+            transition: color var(--transition-fast);
+        }
+        .skill-tag:hover .skill-icon {
+            color: var(--gray-300);
+        }
+        .skill-tag .edit-marker {
+            color: var(--gray-700);
+            font-size: 0.65rem;
+            margin-left: auto;
+            letter-spacing: 0.05em;
+            transition: color var(--transition-fast);
+        }
+        .skill-tag:hover .edit-marker {
+            color: var(--gray-500);
+        }
+        .skills-category-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gray-500);
+            margin: 28px 0 12px;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 6px;
+        }
+        .skills-category-label:first-of-type {
+            margin-top: 0;
+        }
+        .skills-empty {
+            color: var(--gray-700);
+            font-style: italic;
+            text-align: center;
+            padding: 20px;
         }
 
         /* ============ JOURNEY ============ */
@@ -1074,20 +1129,10 @@
             .hero-name {
                 text-align: left;
             }
-            .hero-monolith-wrap {
-                width: clamp(90px, 11vw, 150px);
-                bottom: 60px;
-                right: clamp(20px, 8vw, 100px);
-            }
         }
         @media (min-width: 1024px) {
             .section-container {
                 max-width: 960px;
-            }
-            .hero-monolith-wrap {
-                width: 140px;
-                right: 100px;
-                bottom: 80px;
             }
         }
         @media (max-width: 767px) {
@@ -1097,9 +1142,6 @@
             }
             .nav-hamburger {
                 display: flex;
-            }
-            .hero-monolith-wrap {
-                display: none !important;
             }
             .hero-name {
                 font-size: clamp(2rem, 8vw, 3rem);
@@ -1123,6 +1165,35 @@
                 width: 20px;
                 height: 20px;
             }
+            .skills-filter {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding-bottom: 8px;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: thin;
+                scrollbar-color: var(--border) transparent;
+            }
+            .skills-filter::-webkit-scrollbar {
+                height: 4px;
+            }
+            .skills-filter::-webkit-scrollbar-thumb {
+                background: var(--border);
+                border-radius: 4px;
+            }
+            .filter-btn {
+                flex: 0 0 auto;
+            }
+            .skills-grid {
+                grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+                gap: 8px;
+            }
+            .skill-tag {
+                padding: 8px 10px;
+                font-size: 0.72rem;
+            }
+            .skill-tag .skill-icon {
+                font-size: 0.8rem;
+            }
         }
         @media (max-width: 380px) {
             .hero-name {
@@ -1136,6 +1207,9 @@
             }
             .section-container {
                 padding: 0 12px;
+            }
+            .skills-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
             }
         }
 
@@ -1162,9 +1236,6 @@
             #loading-screen {
                 display: none;
             }
-            .hero-monolith-wrap {
-                animation: none !important;
-            }
             .cursor-dot,
             .cursor-ring {
                 display: none !important;
@@ -1176,6 +1247,12 @@
             .hero-label {
                 animation: none !important;
                 opacity: 1 !important;
+            }
+            .skill-tag:hover {
+                transform: none;
+            }
+            .filter-btn:hover {
+                background: none;
             }
         }
     </style>
@@ -1247,35 +1324,6 @@
                 </svg>
             </div>
         </div>
-        <!-- MONOLITH - hanya tampil di desktop via media query -->
-        <div class="hero-monolith-wrap" id="monolith-wrap" aria-hidden="true">
-            <svg viewBox="0 0 120 200" fill="none" xmlns="http://www.w3.org/2000/svg" id="monolith-svg">
-                <defs>
-                    <filter id="monoGlow" x="-50%" y="-50%" width="200%" height="200%">
-                        <feGaussianBlur stdDeviation="2.5" result="blur"/>
-                        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-                    </filter>
-                    <linearGradient id="monoGrad" x1="0" y1="0" x2="1" y2="0">
-                        <stop offset="0%" stop-color="#1A1A1A"/>
-                        <stop offset="50%" stop-color="#2D2D2D"/>
-                        <stop offset="100%" stop-color="#1A1A1A"/>
-                    </linearGradient>
-                </defs>
-                <polygon points="35,10 85,10 78,190 42,190" fill="url(#monoGrad)" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
-                <polygon points="35,10 58,22 62,190 42,190" fill="rgba(255,255,255,0.03)"/>
-                <polygon points="85,10 62,22 66,190 78,190" fill="rgba(0,0,0,0.25)"/>
-                <g filter="url(#monoGlow)">
-                    <path d="M60 12L54 30L61 40L48 58L56 70L45 82L53 95L42 108L50 120L39 135L47 148L37 162L44 178L41 188"
-                    stroke="#F5F5F5" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.8"/>
-                    <path d="M60 12L68 26L58 38L65 50L52 62L60 75L48 88L56 100L44 112L52 125L40 140L48 155L43 170"
-                    stroke="rgba(245,245,245,0.4)" stroke-width="1" fill="none" stroke-linecap="round" opacity="0.5"/>
-                </g>
-                <circle r="2" fill="#FFFFFF" class="energy-dot" opacity="0.9">
-                    <animateMotion dur="4s" repeatCount="indefinite" path="M60 14 L54 30 L61 40 L48 58 L56 70 L45 82 L53 95 L42 108 L50 120 L39 135 L47 148 L37 162 L44 178 L41 188" keyPoints="0;0.2;0.35;0.5;0.65;0.8;0.9;1" keyTimes="0;0.15;0.3;0.45;0.6;0.75;0.9;1" calcMode="linear"/>
-                </circle>
-                <rect x="35" y="10" width="50" height="180" rx="2" stroke="rgba(255,255,255,0.1)" stroke-width="0.8" fill="none"/>
-            </svg>
-        </div>
         <div class="hero-content">
             <div class="hero-label">DEVELOPER / CREATIVE CODER</div>
             <h1 class="hero-name">HORIZON<span class="x-accent">X</span></h1>
@@ -1321,31 +1369,19 @@
         <div class="section-container">
             <div class="section-label reveal">02 / SKILLS</div>
             <h2 class="section-title reveal">Things I Work With.</h2>
-            <p class="section-desc reveal">Alat dan teknologi yang saya gunakan sehari-hari untuk membangun web.</p>
-
-            <div class="skills-cat reveal reveal-delay-1">
-                <div class="skills-cat-title">WEB</div>
-                <div class="skills-list">
-                    <span class="skill-item">HTML</span>
-                    <span class="skill-item">CSS</span>
-                    <span class="skill-item">JavaScript</span>
-                </div>
+            <p class="section-desc reveal">Klik kategori untuk memfilter skill yang ingin ditampilkan.</p>
+            <div class="skills-filter reveal" id="skills-filter" role="tablist" aria-label="Filter kategori skill">
+                <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">ALL</button>
+                <button class="filter-btn" data-filter="web" role="tab" aria-selected="false">WEB</button>
+                <button class="filter-btn" data-filter="frontend" role="tab" aria-selected="false">FRONTEND</button>
+                <button class="filter-btn" data-filter="backend" role="tab" aria-selected="false">BACKEND</button>
+                <button class="filter-btn" data-filter="programming" role="tab" aria-selected="false">PROGRAMMING</button>
+                <button class="filter-btn" data-filter="tools" role="tab" aria-selected="false">TOOLS</button>
+                <button class="filter-btn" data-filter="design" role="tab" aria-selected="false">DESIGN</button>
+                <button class="filter-btn" data-filter="other" role="tab" aria-selected="false">OTHER</button>
             </div>
-            <div class="skill-divider reveal"></div>
-            <div class="skills-cat reveal reveal-delay-2">
-                <div class="skills-cat-title">TOOLS</div>
-                <div class="skills-list">
-                    <span class="skill-item">Git</span>
-                    <span class="skill-item">GitHub</span>
-                </div>
-            </div>
-            <div class="skill-divider reveal"></div>
-            <div class="skills-cat reveal reveal-delay-3">
-                <div class="skills-cat-title">CURRENTLY EXPLORING</div>
-                <div class="skills-list">
-                    <span class="skill-item">TypeScript</span>
-                    <span class="skill-item">Node.js</span>
-                </div>
+            <div id="skills-container" class="reveal">
+                <!-- Skills will be rendered by JavaScript -->
             </div>
         </div>
     </section>
@@ -1672,12 +1708,12 @@
             }
             animateCursor();
 
-            document.querySelectorAll('a, button, .skill-item, .timeline-entry').forEach(el => {
+            document.querySelectorAll('a, button, .skill-tag, .filter-btn').forEach(el => {
                 el.addEventListener('mouseenter', () => {
                     if (cursorRing) {
                         cursorRing.classList.add('hovering');
                         if (el.tagName === 'BUTTON' || el.classList.contains('btn') || el.classList
-                            .contains('skill-item')) {
+                            .contains('skill-tag') || el.classList.contains('filter-btn')) {
                             cursorRing.classList.add('hovering-btn');
                         }
                     }
@@ -1700,20 +1736,14 @@
         const mountainBack = document.getElementById('mountain-back');
         const mountainMid = document.getElementById('mountain-mid');
         const mountainFront = document.getElementById('mountain-front');
-        const monolithWrap = document.getElementById('monolith-wrap');
 
         let targetBackX = 0,
             targetMidX = 0,
-            targetFrontX = 0,
-            targetMonoX = 0,
-            targetMonoY = 0;
+            targetFrontX = 0;
         let currentBackX = 0,
             currentMidX = 0,
-            currentFrontX = 0,
-            currentMonoX = 0,
-            currentMonoY = 0;
-        let mouseParallaxX = 0,
-            mouseParallaxY = 0;
+            currentFrontX = 0;
+        let mouseParallaxX = 0;
 
         if (!isTouchDevice && !prefersReducedMotion) {
             document.addEventListener('mousemove', (e) => {
@@ -1722,15 +1752,11 @@
                 const rect = hero.getBoundingClientRect();
                 if (rect.top < window.innerHeight && rect.bottom > 0) {
                     const centerX = window.innerWidth / 2;
-                    const centerY = window.innerHeight / 2;
                     mouseParallaxX = (e.clientX - centerX) / centerX;
-                    mouseParallaxY = (e.clientY - centerY) / centerY;
 
                     targetBackX = mouseParallaxX * 2;
                     targetMidX = mouseParallaxX * 3.5;
                     targetFrontX = mouseParallaxX * 5;
-                    targetMonoX = mouseParallaxX * 7;
-                    targetMonoY = mouseParallaxY * 4;
                 }
             });
 
@@ -1738,32 +1764,247 @@
                 currentBackX += (targetBackX - currentBackX) * 0.05;
                 currentMidX += (targetMidX - currentMidX) * 0.06;
                 currentFrontX += (targetFrontX - currentFrontX) * 0.07;
-                currentMonoX += (targetMonoX - currentMonoX) * 0.05;
-                currentMonoY += (targetMonoY - currentMonoY) * 0.05;
 
                 if (mountainBack) mountainBack.style.transform = `translateX(${currentBackX}px)`;
                 if (mountainMid) mountainMid.style.transform = `translateX(${currentMidX}px)`;
                 if (mountainFront) mountainFront.style.transform = `translateX(${currentFrontX}px)`;
-                if (monolithWrap) monolithWrap.style.transform =
-                    `translateX(${currentMonoX}px) translateY(${currentMonoY}px)`;
 
                 requestAnimationFrame(animateParallax);
             }
             animateParallax();
         }
 
-        // ============ MONOLITH FLOAT ============
-        if (!prefersReducedMotion && monolithWrap) {
-            monolithWrap.style.animation = 'monoFloat 6s ease-in-out infinite';
-        }
-        const monoFloatStyle = document.createElement('style');
-        monoFloatStyle.textContent = `
-                    @keyframes monoFloat {
-                        0%, 100% { transform: translateY(0); }
-                        50% { transform: translateY(-5px); }
+        // ============ SKILLS DATA & RENDERING ============
+        const skillsData = [{
+            name: "HTML",
+            category: "web",
+            icon: "◇",
+            edit: ""
+        }, {
+            name: "CSS",
+            category: "web",
+            icon: "◇",
+            edit: ""
+        }, {
+            name: "JavaScript",
+            category: "web",
+            icon: "◇",
+            edit: ""
+        }, {
+            name: "Responsive Design",
+            category: "web",
+            icon: "◇",
+            edit: ""
+        }, {
+            name: "DOM",
+            category: "web",
+            icon: "◇",
+            edit: ""
+        }, {
+            name: "Web Animations",
+            category: "web",
+            icon: "◇",
+            edit: ""
+        }, {
+            name: "Web Accessibility",
+            category: "web",
+            icon: "◇",
+            edit: ""
+        }, {
+            name: "React",
+            category: "frontend",
+            icon: "◇",
+            edit: "[EDIT]"
+        }, {
+            name: "Tailwind CSS",
+            category: "frontend",
+            icon: "◇",
+            edit: "[EDIT]"
+        }, {
+            name: "UI/UX",
+            category: "frontend",
+            icon: "◇",
+            edit: ""
+        }, {
+            name: "Component Design",
+            category: "frontend",
+            icon: "◇",
+            edit: ""
+        }, {
+            name: "Responsive UI",
+            category: "frontend",
+            icon: "◇",
+            edit: ""
+        }, {
+            name: "Node.js",
+            category: "backend",
+            icon: "◇",
+            edit: "[EDIT]"
+        }, {
+            name: "REST API",
+            category: "backend",
+            icon: "◇",
+            edit: "[EDIT]"
+        }, {
+            name: "JSON",
+            category: "backend",
+            icon: "◇",
+            edit: ""
+        }, {
+            name: "Database",
+            category: "backend",
+            icon: "◇",
+            edit: "[EDIT]"
+        }, {
+            name: "JavaScript",
+            category: "programming",
+            icon: "◇",
+            edit: ""
+        }, {
+            name: "Python",
+            category: "programming",
+            icon: "◇",
+            edit: "[EDIT]"
+        }, {
+            name: "Git",
+            category: "tools",
+            icon: "◇",
+            edit: ""
+        }, {
+            name: "GitHub",
+            category: "tools",
+            icon: "◇",
+            edit: ""
+        }, {
+            name: "VS Code",
+            category: "tools",
+            icon: "◇",
+            edit: ""
+        }, {
+            name: "Chrome DevTools",
+            category: "tools",
+            icon: "◇",
+            edit: ""
+        }, {
+            name: "npm",
+            category: "tools",
+            icon: "◇",
+            edit: ""
+        }, {
+            name: "Vite",
+            category: "tools",
+            icon: "◇",
+            edit: "[EDIT]"
+        }, {
+            name: "UI Design",
+            category: "design",
+            icon: "◇",
+            edit: ""
+        }, {
+            name: "UX Design",
+            category: "design",
+            icon: "◇",
+            edit: ""
+        }, {
+            name: "Wireframing",
+            category: "design",
+            icon: "◇",
+            edit: ""
+        }, {
+            name: "Prototyping",
+            category: "design",
+            icon: "◇",
+            edit: ""
+        }, {
+            name: "Figma",
+            category: "design",
+            icon: "◇",
+            edit: "[EDIT]"
+        }, {
+            name: "TypeScript",
+            category: "other",
+            icon: "◇",
+            edit: "[EDIT]"
+        }, {
+            name: "Node.js",
+            category: "other",
+            icon: "◇",
+            edit: "[EDIT]"
+        }];
+
+        const skillsContainer = document.getElementById('skills-container');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        let currentFilter = 'all';
+
+        function renderSkills(filter = 'all') {
+            if (!skillsContainer) return;
+            const filtered = filter === 'all' ? skillsData : skillsData.filter(s => s.category === filter);
+            const grouped = {};
+            filtered.forEach(skill => {
+                if (!grouped[skill.category]) grouped[skill.category] = [];
+                grouped[skill.category].push(skill);
+            });
+
+            let html = '';
+            if (filter === 'all') {
+                // Show categories in fixed order
+                const categoryOrder = ['web', 'frontend', 'backend', 'programming', 'tools', 'design', 'other'];
+                categoryOrder.forEach(cat => {
+                    if (grouped[cat]) {
+                        const catLabel = cat.charAt(0).toUpperCase() + cat.slice(1);
+                        html += `<div class="skills-category-label">${catLabel}</div>`;
+                        html += `<div class="skills-grid">`;
+                        grouped[cat].forEach(skill => {
+                            html += `
+                                <div class="skill-tag" data-category="${skill.category}">
+                                    <span class="skill-icon">${skill.icon}</span>
+                                    <span>${skill.name}</span>
+                                    ${skill.edit ? `<span class="edit-marker">${skill.edit}</span>` : ''}
+                                </div>
+                            `;
+                        });
+                        html += `</div>`;
                     }
-                `;
-        document.head.appendChild(monoFloatStyle);
+                });
+            } else {
+                // Single category
+                if (grouped[filter]) {
+                    const catLabel = filter.charAt(0).toUpperCase() + filter.slice(1);
+                    html += `<div class="skills-category-label">${catLabel}</div>`;
+                    html += `<div class="skills-grid">`;
+                    grouped[filter].forEach(skill => {
+                        html += `
+                            <div class="skill-tag" data-category="${skill.category}">
+                                <span class="skill-icon">${skill.icon}</span>
+                                <span>${skill.name}</span>
+                                ${skill.edit ? `<span class="edit-marker">${skill.edit}</span>` : ''}
+                            </div>
+                        `;
+                    });
+                    html += `</div>`;
+                } else {
+                    html = `<div class="skills-empty">Belum ada skill untuk kategori ini.</div>`;
+                }
+            }
+
+            skillsContainer.innerHTML = html;
+            skillsContainer.classList.add('active');
+        }
+
+        renderSkills('all');
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => {
+                    b.classList.remove('active');
+                    b.setAttribute('aria-selected', 'false');
+                });
+                btn.classList.add('active');
+                btn.setAttribute('aria-selected', 'true');
+                currentFilter = btn.dataset.filter;
+                renderSkills(currentFilter);
+            });
+        });
 
         // ============ BACK TO TOP ============
         const backToTop = document.getElementById('back-to-top');
@@ -1821,4 +2062,4 @@
     })();
 </script>
 </body>
-                    </html>
+    </html>
